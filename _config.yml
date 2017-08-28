@@ -4,11 +4,11 @@
 
 # Site
 title: Sandbeach
-subtitle:
+subtitle: 记录生命中点点滴滴...
 description: Web开发
 author: Will Mao
 language: zh-cn
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
