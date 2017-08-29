@@ -7,7 +7,7 @@ title: Sandbeach
 subtitle: 记录生命中点点滴滴...
 description: Web开发
 author: Will Mao
-language: zh-cn
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
@@ -72,7 +72,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: landscape-plus
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
