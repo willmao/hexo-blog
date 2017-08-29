@@ -2,7 +2,8 @@
 title: NPM笔记
 date: 2017-08-29 22:44:36
 catetories:
-    - NodeJS相关
+    - Web tools
+    - NPM
 tags:
     - npm
     - nodejs

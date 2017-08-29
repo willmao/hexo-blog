@@ -3,6 +3,7 @@ title: Microsoft Loves Linux
 date: 2017-08-28 23:55:05
 categories:
     - System
+    - Windows 10
 tags:
     - System
     - Windows10
