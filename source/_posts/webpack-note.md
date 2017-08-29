@@ -1,5 +1,5 @@
 ---
-title: webpack-note
+title: Webpack笔记
 date: 2017-08-29 22:55:49
 categories:
     - Web tools
@@ -8,8 +8,6 @@ tags:
     - Web tools
     - Webpack
 ---
-
-## Webpack笔记
 
 ### Webpack常见问题
 

@@ -1,5 +1,5 @@
 ---
-title: nvm-note
+title: nvm笔记
 date: 2017-08-29 22:52:14
 categories:
     - NodeJS相关
@@ -7,8 +7,6 @@ tags:
     - NodeJS
     - nvm
 ---
-
-## nvm笔记
 
 nvm是node version manager的缩写，可以用它来安装和管理多个node版本, git仓库位置：[Github-nvm](https://github.com/creationix/nvm)
 

@@ -1,5 +1,5 @@
 ---
-title: npm-note
+title: NPM笔记
 date: 2017-08-29 22:44:36
 catetories:
     - NodeJS相关
@@ -7,8 +7,6 @@ tags:
     - npm
     - nodejs
 ---
-
-## NPM笔记
 
 ### npm命令基本格式
 
