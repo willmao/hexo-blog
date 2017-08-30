@@ -5,9 +5,13 @@
 # Site
 title: Sandbeach
 subtitle: 记录生命中点点滴滴...
-description: Web开发
+description: 瀚海拾贝
 author: Will Mao
+<<<<<<< HEAD
 language: zh-CN
+=======
+language: zh-Hans
+>>>>>>> b471718291e040ce8596fb6678a766fd77995417
 timezone: Asia/Shanghai
 
 # URL
@@ -72,7 +76,12 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape-plus
+theme: next
+
+# Sitemap config
+sitemap:
+  path: sitemap.xml
+  template: ./sitemap_template.xml
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

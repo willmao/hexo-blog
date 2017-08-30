@@ -1,9 +1,11 @@
 ---
 title: 翻墙那些事
 date: 2017-08-28 10:19:40
+categories:
+  - System
+  - Tools
 tags: 
-  - 科学上网
-  - 翻墙
+  - GFW
 ---
 
 ## 引言
