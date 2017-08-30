@@ -3,7 +3,7 @@ title: Microsoft Visual Code配置
 date: 2017-08-30 09:33:40
 categories:
   - System
-  - Tool
+  - Tools
 tags:
   - System
   - Software
