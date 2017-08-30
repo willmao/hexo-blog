@@ -11,14 +11,10 @@ tags:
 
 ### 替换文本
 
-当前行
+```
+:s/foo/bar/g  // 替换当前行
+:%s/foo/bar/g // 替换所有行
+5,12/foo/bar/g // 指定行
+```
 
-    :s/foo/bar/g
-
-所有行
-
-    :%s/foo/bar/g
-
-指定行
-
-    5,12/foo/bar/g
+<!--more-->
