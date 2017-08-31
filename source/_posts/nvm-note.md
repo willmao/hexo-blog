@@ -2,8 +2,7 @@
 title: nvm笔记
 date: 2017-08-29 22:52:14
 categories:
-    - Web tools
-    - NVM
+  - Web development
 tags:
     - NodeJS
     - nvm

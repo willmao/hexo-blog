@@ -1,6 +1,8 @@
 ---
 title: CSS笔记
 date: 2017-08-30 16:13:41
+categories:
+  - Web development
 tags:
   - Web development
   - CSS3

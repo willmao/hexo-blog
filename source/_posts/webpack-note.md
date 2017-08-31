@@ -2,8 +2,7 @@
 title: Webpack笔记
 date: 2017-08-29 22:55:49
 categories:
-    - Web tools
-    - Webpack
+  - Web development
 tags:
     - Web tools
     - Webpack

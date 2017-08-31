@@ -2,8 +2,7 @@
 title: vim笔记
 date: 2017-08-30 09:23:37
 categories:
-  - System
-  - Linux
+  - Software
 tags:
   - Linux
   - vim

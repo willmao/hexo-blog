@@ -13,5 +13,3 @@ deploy:
   on:
     branch: master
     local_dir: .deploy_git
-    repo: willmao
-    project_name: willmao.github.io
