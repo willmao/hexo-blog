@@ -9,18 +9,10 @@ branches:
   only:
     - master
 
-before_install:
-  - npm install -g hexo-cli
-
-install:
-  - npm install
-
 before_script:
   - git clone https://github.com/iissnan/hexo-theme-next themes/next
   - cp .theme_config.yml themes/next/_config.yml
+  - sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
 
 script:
-  - hexo generate
-  - sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
-  - hexo deploy
- 
+  - npm run deploy
