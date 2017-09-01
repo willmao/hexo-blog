@@ -106,21 +106,19 @@ branches:
   only:
     - master
 
-before_install:
-  - npm install -g hexo-cli
-
-install:
-  - npm install
-
-// 因为没有checin主题项目，所以需要下载并覆盖主题配置文件
 before_script:
   - git clone https://github.com/iissnan/hexo-theme-next themes/next
   - cp .theme_config.yml themes/next/_config.yml
+  - sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
 
 script:
-  - hexo generate
-  - sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml // 替换repo名称，使用token访问repo
-  - hexo deploy
+  - npm run deploy
+```
+
+package.json里deploy命令：
+
+```
+"deploy": "hexo generate && hexo deploy"
 ```
 
 这里要要解决的一个问题就是权限的问题，如何让CI程序有权限去修改GitHub的项目？
