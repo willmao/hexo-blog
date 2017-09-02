@@ -78,8 +78,8 @@ Hexo的配置文件里有deploy选项，Hexo会生成博客的静态文件并放
 ```
 deploy:
   type: git
-  repo: https://github.com/willmao/willmao.github.io.git
-  branch: master
+  repo: https://github.com/willmao/hexo-blog.git
+  branch: gh-pages
 ```
 
 > 确保你的git命令有权限访问你的GitHub repo(ssh key, email, username要设置好).
@@ -122,7 +122,7 @@ package.json里deploy命令：
 ```
 
 这里要要解决的一个问题就是权限的问题，如何让CI程序有权限去修改GitHub的项目？
-首先需要去GitHub账户设置里的``Personal access tokens``项里生成一个token，生成的时候勾上repo权限，然后到Travis找到项目，新增一个名为``GITHUB_TOKEN``的环境变量，值为刚才生成的token，Travis会在运行的时候让我们的脚本可以访问到这个环境变量，通过``https://{token}@github.com/willmao/willmao.github.io.git``的方式我们的脚本就有权限读写GitHub上的项目了。
+首先需要去GitHub账户设置里的``Personal access tokens``项里生成一个token，生成的时候勾上repo权限，然后到Travis找到项目，新增一个名为``GITHUB_TOKEN``的环境变量，值为刚才生成的token，Travis会在运行的时候让我们的脚本可以访问到这个环境变量，通过``https://{token}@github.com/willmao/hexo-blog.git``的方式我们的脚本就有权限读写GitHub上的项目了。
 
 > 有些人会担心token被别人看到，引发repo的安全问题，这个不用担心，Travis的log里token会被替换为``secure``显示。
 

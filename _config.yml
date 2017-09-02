@@ -83,5 +83,5 @@ sitemap:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/willmao/willmao.github.io.git
-  branch: master
+  repo: https://github.com/willmao/hexo-blog.git
+  branch: gh-pages
