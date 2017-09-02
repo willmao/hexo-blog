@@ -1,6 +1,7 @@
 ---
 title: Microsoft Loves Linux
 date: 2017-08-28 23:55:05
+updated: 2017-09-02 15:51:00
 categories:
     - System
 tags:
@@ -14,7 +15,7 @@ tags:
 
 <!--more-->
 
-#### 开启WSL功能
+### 开启WSL功能
 
 WSL需要Windows10 build 16215.0以及之后的版本，我是用最新版的Windows10，build版本为1703，默认是支持的。
 开启步骤：
@@ -23,3 +24,15 @@ WSL需要Windows10 build 16215.0以及之后的版本，我是用最新版的Win
 3. 在搜索栏中输入Bash输入``bash``，打开该cmd程序按照提示进行安装并且配置语言环境，或者在应用商店搜索Ubuntu进行安装（我用第一种方法）
 
 安装可能需要数个小时，我是睡觉前安装的，第二天早上看了下装好了，下面就在搜索栏中输入bash，打开``Bash on Ubuntu on Windows``命令行运行bash了。
+
+### 在WSL使用Docker
+
+目前(2017-09-02)WSL中不支持docker-engine的运行，但是我们可以使用docker client来连接到远程或者本机的Windows版docker-engine。
+
+首先安装在WSL中安装docker client:
+
+```
+sudo apt-get install docker.io
+```
+
+然后通过``export DOCKER_HOST=tcp://ip:port``来配置连接docker daemon的host变量，我们就可以在WSL中使用docker了。
