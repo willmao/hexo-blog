@@ -36,3 +36,5 @@ sudo apt-get install docker.io
 ```
 
 然后通过``export DOCKER_HOST=tcp://ip:port``来配置连接docker daemon的host变量，我们就可以在WSL中使用docker了。
+
+> 关于如何让Docker daemon让远程机器访问，可以参考本人的另外一篇博客{% post_link Docker-note %}
