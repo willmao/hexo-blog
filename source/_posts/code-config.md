@@ -1,6 +1,7 @@
 ---
 title: Microsoft Visual Code配置
 date: 2017-08-30 09:33:40
+updated: 2017-09-05 21:23:00
 categories:
   - Software
 tags:
@@ -35,6 +36,10 @@ Code不支持配置同步的功能，所以把配置贴在这里，省的重复�
     "editor.renderWhitespace": "boundary",
     "markdown.preview.fontFamily": "'Segoe WPC', 'Segoe UI', 'SFUIText-Light', 'HelveticaNeue-Light', sans-serif",
     "extensions.ignoreRecommendations": true,
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+    //"terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\cmd.exe",
+    //"terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\WindowsPowerShell\\v1.0\\powershell.exe",
+    //"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    //"terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\bash.exe"
 }
 ```
