@@ -1,6 +1,8 @@
 ---
 title: Webpack简明教程
 date: 2017-09-05 21:50:59
+categories:
+  - Web development
 tags:
   - Web development
   - Webpack
