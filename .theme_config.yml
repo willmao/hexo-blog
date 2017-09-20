@@ -103,7 +103,7 @@ social_icons:
 
 # Blog rolls
 links_title: Links
-links_layout: block
+# links_layout: block
 links_layout: inline
 links:
   机器学习: http://www.burnelltek.com
