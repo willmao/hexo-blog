@@ -26,6 +26,15 @@ tags:
     firewall-cmd --add-port=port/protocol [--permanent] //打开指定网络端口
 ```
 
+#### 开启fastopen功能
+
+fastopen功能可以在建立tcp三次握手的时候就传递有效数据，可以加快网络的访问，以root权限执行以下命令：
+
+```
+echo 3 > /proc/sys/net/ipv4/tcp_fastopen
+echo 'net.ipv4.tcp_fastopen = 3' >> /etc/sysctl.conf
+```
+
 ### 软件安装
 
 安装有依赖问题的deb包
