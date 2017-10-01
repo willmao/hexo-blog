@@ -10,7 +10,7 @@ tags:
 
 ### 系统管理
 
-查看登陆信息
+#### 查看登陆信息
 
 ```
     last n  //显示成功的登陆信息
@@ -19,6 +19,12 @@ tags:
 ```
 
 <!--more-->
+
+#### 在当前terminal中重启shell程序以应用新的环境变量
+
+```
+exec -l $SHELL
+```
 
 ### 网络管理
 
@@ -32,7 +38,7 @@ fastopen功能可以在建立tcp三次握手的时候就传递有效数据，可
 
 ```
 echo 3 > /proc/sys/net/ipv4/tcp_fastopen
-echo 'net.ipv4.tcp_fastopen = 3' >> /etc/sysctl.conf
+echo 'net.ipv4.tcp_fastopen=3' >> /etc/sysctl.conf
 ```
 
 ### 开启Google bbr功能
