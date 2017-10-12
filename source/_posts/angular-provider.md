@@ -1,5 +1,5 @@
 ---
-title: angular-provider
+title: AngularJS Providers
 date: 2017-10-12 22:16:08
 categories:
   - JS
