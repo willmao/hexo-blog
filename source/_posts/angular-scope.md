@@ -10,6 +10,8 @@ tags:
 
 AngularJS是一个双向数据绑定的框架，其实现的基础就是scope。scope本质上是一个object，相当远data-model，它是view层的唯一数据来源。scope上的属性可以被view层展示，方法可以在view层中绑定到事件上(ng事件而不是DOM事件)。
 
+<!--more-->
+
 ## scope工作原理
 
 scope是controller和view层桥梁。在模板链接阶段，directive在scope设置$watch表达式，一旦scope上被watch的属性发生变化，directvie就会被通知到，从而可以让directive去更新DOM。
