@@ -1,5 +1,5 @@
 ---
-title: Webpack笔记
+title: Webpack简单用法
 date: 2017-10-15 22:55:49
 categories:
   - Web development
@@ -101,7 +101,8 @@ webpack的entry支持多个入口文件，比如我们可以把不同模块分�
 module.exports = {
   entry: {
     core: './src/core/index.js',
-    user: './src/user/index.js'
+    user: './src/user/index.js',
+    app: './src/app.js'
   },
   output: {
     filename: '[name].[hash].js',
@@ -116,21 +117,111 @@ module.exports = {
 > webpack-learn@1.0.0 build /mnt/d/workspace/webpack-learn
 > webpack
 
-Hash: 5f8a3d59ab1ee6790d3e
+Hash: 88a10a410debf82db964
 Version: webpack 3.7.1
-Time: 58ms
+Time: 76ms
                        Asset     Size  Chunks             Chunk Names
-user.5f8a3d59ab1ee6790d3e.js  2.52 kB       0  [emitted]  user
-core.5f8a3d59ab1ee6790d3e.js  2.51 kB       1  [emitted]  core
-   [0] ./src/core/index.js 35 bytes {1} [built]
+user.88a10a410debf82db964.js  2.52 kB       0  [emitted]  user
+core.88a10a410debf82db964.js  2.54 kB       1  [emitted]  core
+ app.88a10a410debf82db964.js  2.51 kB       2  [emitted]  app
+   [0] ./src/core/index.js 68 bytes {1} [built]
    [1] ./src/user/index.js 35 bytes {0} [built]
+   [2] ./src/app.js 33 bytes {2} [built]
 ```
 
-可以看到，webpack为我们打包生成了两个输出文件并在文件名中包含了hash值，这个hash值可以防止浏览器缓存。
+上面的log中，``Hash: 88a10a410debf82db964``为本次编译所对应的hash值，共编译生成了``user``、``core``、``app``三个对应的结果文件（和定义的入口文件对应），``[0]``、``[1]``、``[2]``为解析的文件。
 
 ### 使用loader
 
+webpack loader用来对模块的源代码进行转换，它可以使你在``import``模块时预处理文件。看一个在js文件中引用css的例子。
+- 创建``src/core/styles/index.css``文件并向其中加入一些css样式。
+- 在``src/core/index.js``中使用import语法引用上述css样式文件
+- 使用``npm install --save-dev css-loader``安装webpack css-loader
+- 更新webpack配置文件如下：
 
+```
+module.exports = {
+  entry: {
+    core: './src/core/index.js',
+    user: './src/user/index.js',
+    app: './src/app.js'
+  },
+  output: {
+    filename: '[name].[hash].js',
+    path: __dirname + '/dist'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: 'css-loader'
+      }
+    ]
+  }
+};
+```
+执行``npm run build``可以看到输出如下log:
+
+```
+> webpack-learn@1.0.0 build /mnt/d/workspace/webpack-learn
+> webpack
+
+Hash: b0d4fadde3ffa2c31daa
+Version: webpack 3.7.1
+Time: 343ms
+                       Asset     Size  Chunks             Chunk Names
+core.b0d4fadde3ffa2c31daa.js  5.43 kB       0  [emitted]  core
+user.b0d4fadde3ffa2c31daa.js  2.51 kB       1  [emitted]  user
+ app.b0d4fadde3ffa2c31daa.js  2.51 kB       2  [emitted]  app
+   [0] ./src/core/index.js 65 bytes {0} [built]
+   [1] ./src/core/styles/index.css 192 bytes {0} [built]
+   [3] ./src/user/index.js 35 bytes {1} [built]
+   [4] ./src/app.js 33 bytes {2} [built]
+    + 1 hidden module
+```
+在编译生成的``dist/core.[hash].js``文件中，css样式文件被合并到了里面。
+```
+exports.push([module.i, "html {\n  margin: 0;\n}", ""]);
+```
+
+### 使用插件
+
+插件时webpack的核心功能，插件可以解决loader无法实现的一些事情。插件本质上是具有``apply``属性的JS对象，apply属性会被webpack compiler调用，compiler实例在整个编译过程中都可以被插件访问。
+
+因为插件可以携带参数/选项，所以在webpack配置中，我们需要向plugins传入插件实例，下面为使用``webpack-clean-plugin``清除dist目录的示例。
+
+- 使用命令``npm install --save-dev webpack-clean-plugin``安装插件
+- 更新webpack.config.js文件如下：
+```
+const WebpackCleanPlugin = require('webpack-clean-plugin');
+
+module.exports = {
+  entry: {
+    core: './src/core/index.js',
+    user: './src/user/index.js',
+    app: './src/app.js'
+  },
+  output: {
+    filename: '[name].[hash].js',
+    path: __dirname + '/dist'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: 'css-loader'
+      }
+    ]
+  },
+  plugins: [
+    new WebpackCleanPlugin({
+      on: 'emit',
+      path: './dist'
+    })
+  ]
+};
+```
+执行build命令后，可以看到``dist``文件夹中之前编译生成的文件都被清楚掉了，只保留了此次编译的结果文件。
 
 ## Webpack常见问题
 
