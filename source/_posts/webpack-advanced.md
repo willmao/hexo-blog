@@ -10,6 +10,8 @@ tags:
 
 在{% post_link webpack-note %}一文中，我们简要叙述了webpack的几个核心概念了基本用法，本文将讲述webpack中的几种高级用法。
 
+<!--more-->
+
 ## 本地开发配置
 
 ### webpack-dev-server的配置
@@ -69,7 +71,7 @@ webpack中有三种方式实现Code Splitting：
 - 如果两个文件中都引用了同一个模块，这个模块将会被重复打包
 - 不太灵活，不能在程序逻辑里动态分割代码
 
-### 组织重复打包
+### 阻止重复打包
 
 CommonsChunkPlugin插件可以让我们把公共依赖放入一个现存的或者新建的chunk中。
 ```
