@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Web tools,Webpack," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="webpack 是一个现代 JavaScript 应用程序的模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成少量的 bundle - 通常只有一个，由浏览器加载。 webpack四个核心概念 入口文件entry  webpack创建依赖关系图的起">
+<meta name="keywords" content="Web tools,Webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack简单用法">
+<meta property="og:url" content="http://sandbeach.cn/2017/10/15/webpack-note/index.html">
+<meta property="og:site_name" content="Sandbeach">
+<meta property="og:description" content="webpack 是一个现代 JavaScript 应用程序的模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成少量的 bundle - 通常只有一个，由浏览器加载。 webpack四个核心概念 入口文件entry  webpack创建依赖关系图的起">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-19T16:17:27.208Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack简单用法">
+<meta name="twitter:description" content="webpack 是一个现代 JavaScript 应用程序的模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成少量的 bundle - 通常只有一个，由浏览器加载。 webpack四个核心概念 入口文件entry  webpack创建依赖关系图的起">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sandbeach.cn/2017/10/15/webpack-note/"/>
+
+
+
+
+
+  <title>Webpack简单用法 | Sandbeach</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sandbeach</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录生命中点点滴滴...</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sandbeach.cn/2017/10/15/webpack-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Will Mao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sandbeach">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Webpack简单用法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T01:55:49+00:00">
+                2017-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-development/" itemprop="url" rel="index">
+                    <span itemprop="name">Web development</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>webpack 是一个现代 JavaScript 应用程序的模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成少量的 bundle - 通常只有一个，由浏览器加载。</p>
+<h2 id="webpack四个核心概念"><a href="#webpack四个核心概念" class="headerlink" title="webpack四个核心概念"></a>webpack四个核心概念</h2><ul>
+<li>入口文件entry<br>  webpack创建依赖关系图的起点，可以定义多个入口文件</li>
+<li>输出文件output<br>  定义webpack将资源打包到那个路径的那个文件中，一般一个entry文件对应一个output文件</li>
+<li>loader<br>  webpack把每个资源文件都当作模块处理，它本身只能识别JS，所以需要loader帮助它识别其它类型的资源文件，并转换成模块</li>
+<li>插件<br>  用来在打包模块的编译和集合资源的时候执行自定义的操作</li>
+</ul>
+<a id="more"></a>
+<h2 id="初始化环境"><a href="#初始化环境" class="headerlink" title="初始化环境"></a>初始化环境</h2><h3 id="创建空项目并初始化"><a href="#创建空项目并初始化" class="headerlink" title="创建空项目并初始化"></a>创建空项目并初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir webpack-learn</div><div class="line">cd webpack-learn</div><div class="line">npm init -y</div></pre></td></tr></table></figure>
+<h3 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev webpack</div></pre></td></tr></table></figure>
+<h3 id="添加build命令"><a href="#添加build命令" class="headerlink" title="添加build命令"></a>添加build命令</h3><p>在根目录下的package.json中的scripts里上添加build命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">  &quot;build&quot;: &quot;webpack&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="添加webpack配置文件"><a href="#添加webpack配置文件" class="headerlink" title="添加webpack配置文件"></a>添加webpack配置文件</h3><p>在根目录下创建webpack.config.js文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch webpack.config.js</div></pre></td></tr></table></figure>
+<h2 id="配置webpack"><a href="#配置webpack" class="headerlink" title="配置webpack"></a>配置webpack</h2><h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><p>webpack的配置内容在webpack.config.js中，基本配置如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  entry: &apos;./src/app.js&apos;,</div><div class="line">  output: &#123;</div><div class="line">    filename: &apos;app.js&apos;,</div><div class="line">    path: __dirname + &apos;/dist&apos;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>entry定义了入口文件为<code>src/app.js</code></li>
+<li>output定义了输出文件名和路径</li>
+</ul>
+<p>现在src下面创建app.js文件，然后执行<code>npm run build</code>，可以看到命令行中出现了如下的log:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; webpack-learn@1.0.0 build /mnt/d/workspace/webpack-learn</div><div class="line">&gt; webpack</div><div class="line"></div><div class="line">Hash: 83743640a2da5e7797e4</div><div class="line">Version: webpack 3.7.1</div><div class="line">Time: 52ms</div><div class="line"> Asset     Size  Chunks             Chunk Names</div><div class="line">app.js  2.47 kB       0  [emitted]  main</div><div class="line">   [0] ./src/app.js 0 bytes &#123;0&#125; [built]</div></pre></td></tr></table></figure></p>
+<p>webpack在每次编译的时候都生成一个hash值，上面log中的<code>Hash: 83743640a2da5e7797e4</code>说明了值的内容，它可以用来区别不同的build。</p>
+<h3 id="多入口配置"><a href="#多入口配置" class="headerlink" title="多入口配置"></a>多入口配置</h3><p>webpack的entry支持多个入口文件，比如我们可以把不同模块分别打包成一个bundle文件，页面只加载自己需要的bundle，这样可以提高页面速度。此外，对于公共的vendor依赖，也可以单独打包，这样可以避免重复打包一些资源文件，节约网络流量。</p>
+<p>多入口的基本配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  entry: &#123;</div><div class="line">    core: &apos;./src/core/index.js&apos;,</div><div class="line">    user: &apos;./src/user/index.js&apos;,</div><div class="line">    app: &apos;./src/app.js&apos;</div><div class="line">  &#125;,</div><div class="line">  output: &#123;</div><div class="line">    filename: &apos;[name].[hash].js&apos;,</div><div class="line">    path: __dirname + &apos;/dist&apos;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>上面的配置中，我们创建了两个模块：<code>core</code>和<code>user</code>，两个模块分别有一个<code>index.js</code>的入口文件，output配置中<code>filename</code>被设置为<code>[name].[hash].js</code>，其中name为entry中设置的名字，hash为此次编译hash值，执行build命令后log如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; webpack-learn@1.0.0 build /mnt/d/workspace/webpack-learn</div><div class="line">&gt; webpack</div><div class="line"></div><div class="line">Hash: 88a10a410debf82db964</div><div class="line">Version: webpack 3.7.1</div><div class="line">Time: 76ms</div><div class="line">                       Asset     Size  Chunks             Chunk Names</div><div class="line">user.88a10a410debf82db964.js  2.52 kB       0  [emitted]  user</div><div class="line">core.88a10a410debf82db964.js  2.54 kB       1  [emitted]  core</div><div class="line"> app.88a10a410debf82db964.js  2.51 kB       2  [emitted]  app</div><div class="line">   [0] ./src/core/index.js 68 bytes &#123;1&#125; [built]</div><div class="line">   [1] ./src/user/index.js 35 bytes &#123;0&#125; [built]</div><div class="line">   [2] ./src/app.js 33 bytes &#123;2&#125; [built]</div></pre></td></tr></table></figure>
+<p>上面的log中，<code>Hash: 88a10a410debf82db964</code>为本次编译所对应的hash值，共编译生成了<code>user</code>、<code>core</code>、<code>app</code>三个对应的结果文件（和定义的入口文件对应），<code>[0]</code>、<code>[1]</code>、<code>[2]</code>为解析的文件。</p>
+<h3 id="使用loader"><a href="#使用loader" class="headerlink" title="使用loader"></a>使用loader</h3><p>webpack loader用来对模块的源代码进行转换，它可以使你在<code>import</code>模块时预处理文件。看一个在js文件中引用css的例子。</p>
+<ul>
+<li>创建<code>src/core/styles/index.css</code>文件并向其中加入一些css样式。</li>
+<li>在<code>src/core/index.js</code>中使用import语法引用上述css样式文件</li>
+<li>使用<code>npm install --save-dev css-loader</code>安装webpack css-loader</li>
+<li>更新webpack配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  entry: &#123;</div><div class="line">    core: &apos;./src/core/index.js&apos;,</div><div class="line">    user: &apos;./src/user/index.js&apos;,</div><div class="line">    app: &apos;./src/app.js&apos;</div><div class="line">  &#125;,</div><div class="line">  output: &#123;</div><div class="line">    filename: &apos;[name].[hash].js&apos;,</div><div class="line">    path: __dirname + &apos;/dist&apos;</div><div class="line">  &#125;,</div><div class="line">  module: &#123;</div><div class="line">    rules: [</div><div class="line">      &#123;</div><div class="line">        test: /\.css$/,</div><div class="line">        use: &apos;css-loader&apos;</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>执行<code>npm run build</code>可以看到输出如下log:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&gt; webpack-learn@1.0.0 build /mnt/d/workspace/webpack-learn</div><div class="line">&gt; webpack</div><div class="line"></div><div class="line">Hash: b0d4fadde3ffa2c31daa</div><div class="line">Version: webpack 3.7.1</div><div class="line">Time: 343ms</div><div class="line">                       Asset     Size  Chunks             Chunk Names</div><div class="line">core.b0d4fadde3ffa2c31daa.js  5.43 kB       0  [emitted]  core</div><div class="line">user.b0d4fadde3ffa2c31daa.js  2.51 kB       1  [emitted]  user</div><div class="line"> app.b0d4fadde3ffa2c31daa.js  2.51 kB       2  [emitted]  app</div><div class="line">   [0] ./src/core/index.js 65 bytes &#123;0&#125; [built]</div><div class="line">   [1] ./src/core/styles/index.css 192 bytes &#123;0&#125; [built]</div><div class="line">   [3] ./src/user/index.js 35 bytes &#123;1&#125; [built]</div><div class="line">   [4] ./src/app.js 33 bytes &#123;2&#125; [built]</div><div class="line">    + 1 hidden module</div></pre></td></tr></table></figure>
+<p>在编译生成的<code>dist/core.[hash].js</code>文件中，css样式文件被合并到了里面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exports.push([module.i, &quot;html &#123;\n  margin: 0;\n&#125;&quot;, &quot;&quot;]);</div></pre></td></tr></table></figure></p>
+<h3 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h3><p>插件时webpack的核心功能，插件可以解决loader无法实现的一些事情。插件本质上是具有<code>apply</code>属性的JS对象，apply属性会被webpack compiler调用，compiler实例在整个编译过程中都可以被插件访问。</p>
+<p>因为插件可以携带参数/选项，所以在webpack配置中，我们需要向plugins传入插件实例，下面为使用<code>webpack-clean-plugin</code>清除dist目录的示例。</p>
+<ul>
+<li>使用命令<code>npm install --save-dev webpack-clean-plugin</code>安装插件</li>
+<li>更新webpack.config.js文件如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">const WebpackCleanPlugin = require(&apos;webpack-clean-plugin&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  entry: &#123;</div><div class="line">    core: &apos;./src/core/index.js&apos;,</div><div class="line">    user: &apos;./src/user/index.js&apos;,</div><div class="line">    app: &apos;./src/app.js&apos;</div><div class="line">  &#125;,</div><div class="line">  output: &#123;</div><div class="line">    filename: &apos;[name].[hash].js&apos;,</div><div class="line">    path: __dirname + &apos;/dist&apos;</div><div class="line">  &#125;,</div><div class="line">  module: &#123;</div><div class="line">    rules: [</div><div class="line">      &#123;</div><div class="line">        test: /\.css$/,</div><div class="line">        use: &apos;css-loader&apos;</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  plugins: [</div><div class="line">    new WebpackCleanPlugin(&#123;</div><div class="line">      on: &apos;emit&apos;,</div><div class="line">      path: &apos;./dist&apos;</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>执行build命令后，可以看到<code>dist</code>文件夹中之前编译生成的文件都被清楚掉了，只保留了此次编译的结果文件。</p>
+<h2 id="Webpack常见问题"><a href="#Webpack常见问题" class="headerlink" title="Webpack常见问题"></a>Webpack常见问题</h2><ol>
+<li><p>Webpack不能watch文件的修改</p>
+<p> 问题原因: 系统中打开的文件句柄太多，导致没有足够的watcher可用</p>
+<p> 解决办法：增加系统watcher数量，代码如下:</p>
+<pre><code>echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;&amp; sudo sysctl -p
+</code></pre></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web-tools/" rel="tag"># Web tools</a>
+          
+            <a href="/tags/Webpack/" rel="tag"># Webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/12/angular-provider/" rel="next" title="AngularJS Providers">
+                <i class="fa fa-chevron-left"></i> AngularJS Providers
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/15/webpack-advanced/" rel="prev" title="webpack-advanced">
+                webpack-advanced <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Will Mao" />
+            
+              <p class="site-author-name" itemprop="name">Will Mao</p>
+              <p class="site-description motion-element" itemprop="description">瀚海拾贝</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.burnelltek.com" title="机器学习" target="_blank">机器学习</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack四个核心概念"><span class="nav-number">1.</span> <span class="nav-text">webpack四个核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化环境"><span class="nav-number">2.</span> <span class="nav-text">初始化环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建空项目并初始化"><span class="nav-number">2.1.</span> <span class="nav-text">创建空项目并初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装webpack"><span class="nav-number">2.2.</span> <span class="nav-text">安装webpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加build命令"><span class="nav-number">2.3.</span> <span class="nav-text">添加build命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加webpack配置文件"><span class="nav-number">2.4.</span> <span class="nav-text">添加webpack配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置webpack"><span class="nav-number">3.</span> <span class="nav-text">配置webpack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本配置"><span class="nav-number">3.1.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多入口配置"><span class="nav-number">3.2.</span> <span class="nav-text">多入口配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用loader"><span class="nav-number">3.3.</span> <span class="nav-text">使用loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用插件"><span class="nav-number">3.4.</span> <span class="nav-text">使用插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Webpack常见问题"><span class="nav-number">4.</span> <span class="nav-text">Webpack常见问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Will Mao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
